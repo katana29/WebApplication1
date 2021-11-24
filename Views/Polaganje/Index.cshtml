@@ -1,0 +1,111 @@
+﻿@model IEnumerable<WebApplication1.Models.Polaganje>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Predmet.NazivPredmeta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Student.BrIndexa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ocena)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.datum)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Predmet.NazivPredmeta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student.BrIndexa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ocena)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.datum)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.PolaganjeID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.PolaganjeID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.PolaganjeID })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section scripts{
+    <script src=" ~/Scripts/jquery.signalR-2.4.2.js "></script>
+    <script src=" ~/signalr/hubs"></script>
+
+    <script typeof="text/javascript">
+
+        $(function () {
+            $(function () {
+                var con = $.connection.polaganjeHub;
+                con.client.getUpdateData = function (polaganjeList) {
+                    clientUpdate(polaganjeList);
+                };
+                $.connection.hub.start().done(function () {
+                    clientUpdate();
+                });
+            });
+
+        });
+
+        function clientUpdate(dataList) {
+            if (dataList != undefined) {
+                updateTable(dataList);
+            } else {
+                var url = "Polaganje/Create";
+                $.post(url, function (rData) {
+                    updateTable(rData);
+                });
+            }
+        }
+
+        function updateTable(rData) {
+            $('#PolaganjeTable').html("");
+            if (rData != undefined && rData != "") {
+                //pol, ocena.dat,stud,predmet
+                rData.forEach(c => {
+                    var nazivPredtd = "<td>" + c.NazivPredmeta + "</td>";
+                    var brindexatd = "<td>" + c.brIndexa + "</td>";
+                    var ocenatd = "<td>" + c.ocena + "</td>";
+                    var datumtd = "<td>" + c.datum + "</td>";
+
+                    var tr = "<td>" + nazivPredtd + brindexatd + ocenatd + datumtd + "</td>";
+                    $('#Polaganje').append(tr);
+
+                });
+            }
+        }
+
+    </script>
+
+    
+
+
+
+}
+
+
+
+

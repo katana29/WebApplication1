@@ -1,0 +1,50 @@
+﻿@model WebApplication1.Models.Polaganje
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Polaganje</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Predmet.NazivPredmeta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Predmet.NazivPredmeta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.BrIndexa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student.BrIndexa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ocena)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ocena)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.datum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.datum)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PolaganjeID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

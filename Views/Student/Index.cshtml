@@ -1,0 +1,72 @@
+﻿@model IEnumerable<WebApplication1.Models.Student>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table id="student" class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BrIndexa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.imePrezime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.grad)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BrIndexa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.imePrezime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.grad)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.StudentID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.StudentID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.StudentID })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script>
+    <link href="~/Content/jquery.dataTables.css" rel="stylesheet" />
+    $(document).ready(function () {
+        $("#student").DataTable({
+            "ajax": {
+                "url": " ",
+                "type": "GET",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "Broj indeksa" },
+                { "data": "Ime i prezime" },
+                { "data": "Grad" }
+            ]
+
+        });
+    });
+
+</script>
+
+
+
+
+
